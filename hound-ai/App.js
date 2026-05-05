@@ -12,13 +12,37 @@ export default function App() {
   // O "useRef" é a ferramenta que nos permite controlar o campo de texto
   const inputRef = useRef(null);
 
-  // COLE SUA CHAVE NOVA DA GROQ AQUI (CUIDADO PARA NÃO VAZAR)
+  // SUA CHAVE DA GROQ (Aviso: Em um app de produção real, nunca deixe essa chave exposta no código fonte do aplicativo)
   const GROQ_API_KEY = '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'; 
 
-  const perguntarAoHound = async () => {
-    if (!mensagem.trim() || carregando) return;
+  // --- CONFIGURAÇÃO DE SEGURANÇA (GUARDRAILS) ---
+  const PALAVRAS_BANIDAS = ['senha', 'cartão de crédito', 'hackear', 'criminoso']; // Adicione mais termos conforme a necessidade
+  const LIMITE_CARACTERES = 500;
 
-    const novaMensagemUsuario = { papel: 'user', texto: mensagem };
+  const perguntarAoHound = async () => {
+    // 1. GUARDRAIL DE ENTRADA: Validação básica e filtro de conteúdo
+    const mensagemLimpa = mensagem.trim();
+    
+    if (!mensagemLimpa || carregando) return;
+
+    // Filtro de tamanho
+    if (mensagemLimpa.length > LIMITE_CARACTERES) {
+      alert("A mensagem é muito longa para o Hound processar.");
+      return;
+    }
+
+    // Filtro de palavras proibidas
+    const contemTermoProibido = PALAVRAS_BANIDAS.some(termo => 
+      mensagemLimpa.toLowerCase().includes(termo)
+    );
+
+    if (contemTermoProibido) {
+      setHistorico(prev => [...prev, { papel: 'hound', texto: '⚠️ Desculpe, não posso processar solicitações que envolvam termos sensíveis ou inseguros.' }]);
+      setMensagem('');
+      return;
+    }
+
+    const novaMensagemUsuario = { papel: 'user', texto: mensagemLimpa };
     setHistorico(prev => [...prev, novaMensagemUsuario]);
     setMensagem('');
     setCarregando(true);
@@ -38,11 +62,22 @@ export default function App() {
           'Authorization': `Bearer ${GROQ_API_KEY}` 
         },
         body: JSON.stringify({
-          model: "openai/gpt-oss-20b",
+          model: "openai/gpt-oss-20b", // Mantido exatamente como solicitado
           max_tokens: 1024,
-          temperature: 0.7,
+          temperature: 0.5, // Reduzido ligeiramente para manter as respostas mais seguras e consistentes
           messages: [
-            { role: "system", content: "Você é o Hound, um assistente virtual prático. Responda de forma direta usando formatação em Markdown (negrito, listas). IMPORTANTE: Nunca use tags HTML como <br>. Se precisar listar itens, faça fora de tabelas usando bullet points normais." },
+            // 2. GUARDRAIL DE COMPORTAMENTO: Instruções rígidas no System Prompt
+            { 
+              role: "system", 
+              content: `Você é o Hound, um assistente virtual prático. 
+              GUARDRAILS DE COMPORTAMENTO:
+              1. NUNCA forneça conselhos médicos, jurídicos ou financeiros.
+              2. Se o usuário pedir algo ilegal ou antiético, recuse educadamente.
+              3. Responda apenas em Português do Brasil.
+              4. Mantenha as respostas curtas e objetivas.
+              5. Use formatação em Markdown (negrito, listas). 
+              IMPORTANTE: Nunca use tags HTML como <br>. Se precisar listar itens, faça fora de tabelas usando bullet points normais.` 
+            },
             { role: "user", content: novaMensagemUsuario.texto }
           ]
         }),
@@ -55,7 +90,13 @@ export default function App() {
          throw new Error(`Erro na API: ${response.status}`);
       }
       
-      const textoResposta = data.choices[0].message.content;
+      let textoResposta = data.choices[0].message.content;
+
+      // 3. GUARDRAIL DE SAÍDA: Tratamento da resposta antes de mostrar ao usuário
+      if (textoResposta.includes("modelo de linguagem da OpenAI") || textoResposta.includes("sou uma IA")) {
+        textoResposta = "Eu sou o Hound e estou aqui para ajudar você com tarefas práticas!";
+      }
+
       const respostaIA = { papel: 'hound', texto: textoResposta };
       
       setHistorico(prev => [...prev, respostaIA]);
@@ -94,8 +135,8 @@ export default function App() {
 
       <View style={styles.inputArea}>
         <TextInput
-          ref={inputRef} // Conectamos a referência aqui!
-          blurOnSubmit={false} // Evita que o teclado feche ao apertar "Enviar" no teclado
+          ref={inputRef}
+          blurOnSubmit={false}
           style={styles.input}
           placeholder="Fale com o Hound..."
           placeholderTextColor="#A98467"
@@ -113,29 +154,29 @@ export default function App() {
 
 // ESTILOS "SOL NASCENTE" (SEM BRILHOS EXAGERADOS)
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#2E1F1A' }, // Marrom escuro (Fundo)
+  container: { flex: 1, backgroundColor: '#2E1F1A' },
   header: { 
     paddingTop: 60, 
     paddingBottom: 20, 
     alignItems: 'center', 
-    backgroundColor: '#4A332A', // Marrom médio
+    backgroundColor: '#4A332A',
     borderBottomWidth: 1, 
     borderColor: '#634433' 
   },
-  title: { color: '#F2C14E', fontSize: 22, fontWeight: 'bold', letterSpacing: 2 }, // Amarelo sol
+  title: { color: '#F2C14E', fontSize: 22, fontWeight: 'bold', letterSpacing: 2 },
   chatArea: { flex: 1, padding: 15 },
   balao: { padding: 16, borderRadius: 12, marginBottom: 15, maxWidth: '85%' },
   user: { 
     alignSelf: 'flex-end', 
-    backgroundColor: '#F2C14E', // Balão do usuário amarelo quente
+    backgroundColor: '#F2C14E',
     borderBottomRightRadius: 0 
   },
   hound: { 
     alignSelf: 'flex-start', 
-    backgroundColor: '#4A332A', // Balão da IA marrom 
+    backgroundColor: '#4A332A',
     borderBottomLeftRadius: 0 
   },
-  msgText: { color: '#2E1F1A', fontSize: 16, lineHeight: 22, fontWeight: '500' }, // Texto do usuário escuro (para contrastar com o balão amarelo)
+  msgText: { color: '#2E1F1A', fontSize: 16, lineHeight: 22, fontWeight: '500' },
   inputArea: { 
     flexDirection: 'row', 
     padding: 15, 
@@ -147,21 +188,21 @@ const styles = StyleSheet.create({
   input: { 
     flex: 1, 
     backgroundColor: '#2E1F1A', 
-    color: '#F9E4B7', // Amarelo bem claro para o texto digitado
+    color: '#F9E4B7',
     padding: 15, 
     borderRadius: 25, 
     marginRight: 10 
   },
   botao: { backgroundColor: '#F2C14E', paddingVertical: 15, paddingHorizontal: 20, borderRadius: 25 },
-  textoBotao: { color: '#2E1F1A', fontWeight: 'bold' } // Texto do botão escuro
+  textoBotao: { color: '#2E1F1A', fontWeight: 'bold' }
 });
 
 // ESTILOS ESPECÍFICOS PARA O MARKDOWN DA IA
 const markdownStyles = StyleSheet.create({
-  body: { color: '#F9E4B7', fontSize: 16, lineHeight: 22 }, // Texto da IA em tom areia/amarelo clarinho
-  heading1: { fontSize: 22, fontWeight: 'bold', marginTop: 10, marginBottom: 5, color: '#F2A65A' }, // Laranja suave
+  body: { color: '#F9E4B7', fontSize: 16, lineHeight: 22 },
+  heading1: { fontSize: 22, fontWeight: 'bold', marginTop: 10, marginBottom: 5, color: '#F2A65A' },
   heading2: { fontSize: 20, fontWeight: 'bold', marginTop: 10, marginBottom: 5, color: '#F2A65A' },
-  strong: { fontWeight: 'bold', color: '#F2C14E' }, // Negritos em amarelo
+  strong: { fontWeight: 'bold', color: '#F2C14E' },
   em: { fontStyle: 'italic', color: '#E0C097' },
   link: { color: '#F2A65A', textDecorationLine: 'underline' },
   bullet_list: { marginTop: 5, marginBottom: 5 },
