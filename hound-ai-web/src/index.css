@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Fustat:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Cores Light Mode */
+  --bg-body: #F4F3F8; /* Levemente púrpura / cinza claro */
+  --bg-sidebar: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-input: #FFFFFF;
+  --bg-message-user: #F0F0FA;
+  --bg-message-ai: #FFFFFF;
+  
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B6B8A;
+  --text-placeholder: #A0A0BA;
+  
+  --border-color: #E2E2EA;
+  
+  --brand-primary: #6B46C1; /* Roxo principal, inspirado no ChatCore */
+  --brand-primary-hover: #553C9A;
+  --brand-gradient: linear-gradient(135deg, #6B46C1, #9F7AEA);
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(107, 70, 193, 0.15); /* Sombra roxa leve */
+  
+  /* Gradiente especial para o app Dia (soft e leve) */
+  --bg-dia-gradient: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(245, 235, 250, 0.8) 100%);
+}
+
+.dark {
+  /* Cores Dark Mode */
+  --bg-body: #13111C; /* Escuro com leve tom roxo */
+  --bg-sidebar: #1C1929;
+  --bg-card: #1C1929;
+  --bg-input: #252236;
+  --bg-message-user: #312A4F;
+  --bg-message-ai: #1C1929;
+  
+  --text-primary: #F0F0FA;
+  --text-secondary: #A0A0BA;
+  --text-placeholder: #6B6B8A;
+  
+  --border-color: #2D2A40;
+  
+  --brand-primary: #9F7AEA; /* Roxo mais claro para contraste no escuro */
+  --brand-primary-hover: #B794F4;
+  --brand-gradient: linear-gradient(135deg, #805AD5, #B794F4);
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  
+  --bg-dia-gradient: linear-gradient(180deg, #13111C 0%, #1A162B 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fustat', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utilitários globais */
+button {
+  font-family: 'Fustat', sans-serif;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input, textarea {
+  font-family: 'Fustat', sans-serif;
+  outline: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Classes de Animações base */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
