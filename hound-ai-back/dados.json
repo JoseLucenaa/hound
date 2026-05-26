@@ -1,0 +1,152 @@
+[
+  {
+    "categoria": "estrutura_de_horarios",
+    "turno": "Tarde",
+    "horarios": {
+      "1_aula": "13:00 às 13:50",
+      "2_aula": "13:50 às 14:40",
+      "3_aula": "14:40 às 15:30",
+      "intervalo": "15:30 às 15:50",
+      "4_aula": "15:50 às 16:40",
+      "5_aula": "16:40 às 17:30",
+      "6_aula": "17:30 às 18:20"
+    },
+    "contraturno_manha": "07:50 às 09:30 (Exclusivo para quinta-feira)"
+  },
+  {
+    "categoria": "grade_de_aulas",
+    "dia_da_semana": "Segunda-feira",
+    "aulas": [
+      { "aulas": "1ª e 2ª", "disciplina": "Projetos de Negócios Digitais" },
+      { "aulas": "3ª e 4ª", "disciplina": "Programação Móvel" },
+      { "aulas": "5ª e 6ª", "disciplina": "Espanhol" }
+    ]
+  },
+  {
+    "categoria": "grade_de_aulas",
+    "dia_da_semana": "Terça-feira",
+    "aulas": [
+      { "aulas": "1ª", "disciplina": "Aula Vaga" },
+      { "aulas": "2ª", "disciplina": "Filosofia" },
+      { "aulas": "3ª e 4ª", "disciplina": "Tópicos Especiais" },
+      { "aulas": "5ª e 6ª", "disciplina": "Física" }
+    ]
+  },
+  {
+    "categoria": "grade_de_aulas",
+    "dia_da_semana": "Quarta-feira",
+    "aulas": [
+      { "aulas": "1ª", "disciplina": "Sociologia" },
+      { "aulas": "2ª", "disciplina": "Geografia" },
+      { "aulas": "3ª e 4ª", "disciplina": "História" },
+      { "aulas": "5ª e 6ª", "disciplina": "Português" }
+    ]
+  },
+  {
+    "categoria": "grade_de_aulas",
+    "dia_da_semana": "Quinta-feira",
+    "aulas": [
+      { "turno": "Manhã", "horario": "07:50 às 09:30", "disciplina": "Biologia (Contraturno)" },
+      { "aulas": "1ª e 2ª", "disciplina": "Química" },
+      { "aulas": "3ª e 4ª", "disciplina": "Matemática" },
+      { "aulas": "5ª e 6ª", "disciplina": "Aulas Vagas" }
+    ]
+  },
+  {
+    "categoria": "grade_de_aulas",
+    "dia_da_semana": "Sexta-feira",
+    "aulas": [
+      { "aulas": "1ª e 2ª", "disciplina": "Engenharia de Software" },
+      { "aulas": "3ª", "disciplina": "Português" },
+      { "aulas": "4ª, 5ª e 6ª", "disciplina": "Laboratórios de Redes" }
+    ]
+  },
+  {
+    "categoria": "calendario_de_provas",
+    "semestre": "1º Semestre de 2026",
+    "avaliacoes": [
+      { "data": "16/03/2026", "dia": "Segunda-feira", "disciplina": "Programação Móvel", "bimestre": "1º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "17/03/2026", "dia": "Terça-feira", "disciplina": "Física", "bimestre": "1º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "19/03/2026", "dia": "Quinta-feira", "disciplina": "Matemática", "bimestre": "1º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "20/04/2026", "dia": "Segunda-feira", "disciplina": "Programação Móvel", "bimestre": "1º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "21/04/2026", "dia": "Terça-feira", "disciplina": "Física", "bimestre": "1º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "23/04/2026", "dia": "Quinta-feira", "disciplina": "Matemática", "bimestre": "1º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "18/05/2026", "dia": "Segunda-feira", "disciplina": "Engenharia de Software", "bimestre": "2º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "20/05/2026", "dia": "Quarta-feira", "disciplina": "Geografia", "bimestre": "2º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "21/05/2026", "dia": "Quinta-feira", "disciplina": "Química", "bimestre": "2º Bimestre", "tipo": "Prova Mensal", "valor": 5 },
+      { "data": "15/06/2026", "dia": "Segunda-feira", "disciplina": "Engenharia de Software", "bimestre": "2º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "17/06/2026", "dia": "Quarta-feira", "disciplina": "Geografia", "bimestre": "2º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "18/06/2026", "dia": "Quinta-feira", "disciplina": "Química", "bimestre": "2º Bimestre", "tipo": "Prova Bimestral", "valor": 5 },
+      { "data": "26/06/2026", "dia": "Sexta-feira", "disciplina": "Laboratórios de Redes", "bimestre": "2º Bimestre", "tipo": "Prova Bimestral (Prática)", "valor": 5 }
+    ]
+  },
+  {
+    "categoria": "trabalhos_pesquisas_e_projetos",
+    "semestre": "1º Semestre de 2026",
+    "tarefas": [
+      { 
+        "data_limite": "25/02/2026", 
+        "disciplina": "Filosofia", 
+        "tipo_de_atividade": "Pesquisa Bibliográfica",
+        "descricao": "Pesquisa sobre o Mito da Caverna e suas aplicações na era digital.", 
+        "formato_entrega": "PDF via Portal do Aluno",
+        "valor_extra": 2,
+        "status": "Concluído" 
+      },
+      { 
+        "data_limite": "10/03/2026", 
+        "disciplina": "Projetos de Negócios Digitais", 
+        "tipo_de_atividade": "Projeto Prático",
+        "descricao": "Criação de um Business Model Canvas para uma startup fictícia.", 
+        "formato_entrega": "Apresentação de Slides",
+        "valor_extra": 3,
+        "status": "Concluído" 
+      },
+      { 
+        "data_limite": "05/04/2026", 
+        "disciplina": "Biologia", 
+        "tipo_de_atividade": "Relatório de Laboratório",
+        "descricao": "Relatório detalhado do contraturno sobre extração de DNA de morango.", 
+        "formato_entrega": "Impresso (Manuscrito)",
+        "valor_extra": 1.5,
+        "status": "Em Andamento" 
+      },
+      { 
+        "data_limite": "15/05/2026", 
+        "disciplina": "Engenharia de Software", 
+        "tipo_de_atividade": "Pesquisa de Metodologias",
+        "descricao": "Estudo comparativo entre metodologias Ágeis (Scrum x Kanban).", 
+        "formato_entrega": "Artigo (Formato ABNT)",
+        "valor_extra": 2,
+        "status": "Pendente" 
+      },
+      { 
+        "data_limite": "01/06/2026", 
+        "disciplina": "Programação Móvel", 
+        "tipo_de_atividade": "Desenvolvimento de App",
+        "descricao": "Entrega do repositório com o CRUD funcional em React Native.", 
+        "formato_entrega": "Link do GitHub",
+        "valor_extra": 4,
+        "status": "Pendente" 
+      },
+      { 
+        "data_limite": "05/06/2026", 
+        "disciplina": "Laboratórios de Redes", 
+        "tipo_de_atividade": "Simulação Prática",
+        "descricao": "Configuração completa de VLANs em switches virtuais.", 
+        "formato_entrega": "Arquivo .pkt (Packet Tracer)",
+        "valor_extra": 3,
+        "status": "Pendente" 
+      },
+      { 
+        "data_limite": "10/06/2026", 
+        "disciplina": "Sociologia", 
+        "tipo_de_atividade": "Seminário em Grupo",
+        "descricao": "Debate em sala sobre os impactos das IAs na sociedade moderna.", 
+        "formato_entrega": "Apresentação Oral",
+        "valor_extra": 2.5,
+        "status": "Pendente" 
+      }
+    ]
+  }
+]
