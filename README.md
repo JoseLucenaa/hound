@@ -210,9 +210,9 @@ volumes:
 ```
 ### 2.3. Guia do Repositório: README.md do Projeto
 ```markdown
-# Hound - Triagem Inteligente para Pets 🐾🐶🐱
+# Hound - Triagem Inteligente para Pets 
 O **Hound** é uma aplicação web voltada para a saúde de animais de estimação. Utilizando Inteligência Artificial (Google Gemini), o sistema permite realizar triagens rápidas e intuitivas com base nos sintomas apresentados pelo seu animal doméstico, ajudando a entender a urgência do caso e preparando um relatório consolidado de saúde pré-consulta.
-## 🚀 Como executar o projeto com Docker
+##  Como executar o projeto com Docker
 Para rodar todo o ecossistema localmente com apenas um comando, você precisa possuir o **Docker** e o **Docker Compose** instalados na sua máquina.
 ### Pré-requisitos
 Antes de subir os containers, crie um arquivo `.env` na raiz do projeto e configure sua chave da API da Google:
@@ -227,7 +227,7 @@ docker-compose up --build
 Após o build, acesse:
  * **Frontend (Aplicação Web)**: http://localhost
  * **API Swagger (Documentação do Backend)**: http://localhost:8000/docs
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
  * **Frontend**: React.js, Tailwind CSS, Axios
  * **Backend**: Python, FastAPI, SQLAlchemy, Google GenAI SDK
  * **Banco de Dados**: PostgreSQL
