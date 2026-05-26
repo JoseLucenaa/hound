@@ -1,3 +1,0 @@
-# hound
-
-# Assistente virtual
