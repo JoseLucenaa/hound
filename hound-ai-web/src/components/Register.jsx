@@ -20,7 +20,7 @@ export default function Register({ onNavigateToLogin }) {
 
     try {
       // Ajuste a URL abaixo para a porta onde seu backend Node está rodando (ex: http://localhost:3000/cadastrar)
-      const response = await fetch('http://localhost:3001/cadastro', {
+      const response = await fetch('https://hound-iokm.onrender.com/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
