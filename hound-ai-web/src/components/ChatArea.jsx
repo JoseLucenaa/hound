@@ -28,13 +28,22 @@ export default function ChatArea() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/chat', {
+      const token = localStorage.getItem('token');
+
+      const response = await fetch('http://localhost:3001/chat', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ mensagem: userMessage.content })
       });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('token');
+        window.location.reload();
+        return;
+      }
 
       if (!response.ok) {
         throw new Error('Erro na comunicação com o servidor');
@@ -51,7 +60,7 @@ export default function ChatArea() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }; // <-- Chave corrigida! Agora o handleSend fecha aqui.
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {

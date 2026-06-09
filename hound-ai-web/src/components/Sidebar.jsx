@@ -31,27 +31,14 @@ export default function Sidebar() {
             <MessageSquare size={18} />
             <span>Chat AI</span>
           </li>
-          <li className="menu-item">
-            <ImageIcon size={18} />
-            <span>Gerar Imagens</span>
-          </li>
-          <li className="menu-item">
-            <History size={18} />
-            <span>Histórico</span>
-          </li>
+         
         </ul>
       </div>
 
       <div className="sidebar-footer">
-        <div className="premium-banner">
-          <div className="premium-icon">💎</div>
-          <div className="premium-text">
-            <strong>Hound Premium</strong>
-            <span>Desbloqueie recursos avançados</span>
-          </div>
-        </div>
+       
 
-        <div className="user-profile">
+        {/* <div className="user-profile">
           <div className="avatar">
             <img src="https://i.pravatar.cc/150?img=11" alt="User" />
           </div>
@@ -62,7 +49,7 @@ export default function Sidebar() {
           <button className="theme-toggle-small" onClick={toggleTheme}>
             {isDark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
-        </div>
+        </div> */}
       </div>
     </aside>
   );

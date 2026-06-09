@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
-import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/hf";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 
 let vectorStore;
@@ -24,9 +24,12 @@ export async function inicializarRAG() {
     });
     const documentos = await splitter.createDocuments([textoParaIA]);
 
-    console.log("🔢 3. Criando Embeddings e salvando na memória (aguarde)...");
-    const embeddings = new HuggingFaceInferenceEmbeddings({
-        apiKey: process.env.HUGGINGFACE_API_KEY, 
+    console.log("🔢 3. Criando Embeddings com Google e salvando na memória (aguarde)...");
+    
+    // Substituímos o Hugging Face pelo Google
+    const embeddings = new GoogleGenerativeAIEmbeddings({
+        apiKey: process.env.GOOGLE_API_KEY, 
+        model: "text-embedding-004", // Modelo mais recente e rápido para RAG
     });
     
     vectorStore = await MemoryVectorStore.fromDocuments(documentos, embeddings);

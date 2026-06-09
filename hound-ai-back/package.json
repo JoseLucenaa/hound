@@ -11,9 +11,8 @@
   "description": "",
   "type": "module",
   "dependencies": {
-    "@huggingface/inference": "^4.13.15",
-    "@langchain/community": "^0.0.50",
-    "@langchain/core": "^0.1.58",
+    "@langchain/core": "^0.2.33",
+    "@langchain/google-genai": "^0.0.20",
     "@langchain/groq": "^0.0.11",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
