@@ -1,10 +1,31 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importando o hook de navegação
 import { useTheme } from '../context/ThemeContext';
-import { Dog, Plus, MessageSquare, Image as ImageIcon, History, Settings, Moon, Sun } from 'lucide-react';
+import { 
+  Dog, 
+  Plus, 
+  MessageSquare, 
+  Image as ImageIcon, 
+  History, 
+  Settings, 
+  Moon, 
+  Sun,
+  LogOut // Importando o ícone de Sair
+} from 'lucide-react';
 import './Sidebar.css';
 
 export default function Sidebar() {
   const { isDark, toggleTheme } = useTheme();
+  const navigate = useNavigate(); // Inicializando a navegação
+
+  // Função para lidar com o Logout
+  const handleLogout = () => {
+    // 1. Remove o token de autenticação do armazenamento local
+    localStorage.removeItem('token'); 
+  
+  // 3. Use o redirecionamento nativo do navegador
+  window.location.href = '/login';
+  };
 
   return (
     <aside className="sidebar">
@@ -17,12 +38,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="sidebar-new-chat">
-        <button className="new-chat-btn">
-          <Plus size={18} />
-          Nova Conversa
-        </button>
-      </div>
+      
 
       <div className="sidebar-menu">
         <p className="menu-label">Recursos</p>
@@ -31,25 +47,19 @@ export default function Sidebar() {
             <MessageSquare size={18} />
             <span>Chat AI</span>
           </li>
-         
         </ul>
       </div>
 
       <div className="sidebar-footer">
-       
+        {/* Adicionando o botão de Sair */}
+        <ul className="menu-list">
+          <li className="menu-item" onClick={handleLogout} style={{ cursor: 'pointer', color: '#ff4d4f' }}>
+            <LogOut size={18} />
+            <span>Sair</span>
+          </li>
+        </ul>
 
-        {/* <div className="user-profile">
-          <div className="avatar">
-            <img src="https://i.pravatar.cc/150?img=11" alt="User" />
-          </div>
-          <div className="user-info">
-            <span className="user-name">Usuário</span>
-            <span className="user-plan">Plano Grátis</span>
-          </div>
-          <button className="theme-toggle-small" onClick={toggleTheme}>
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-        </div> */}
+        
       </div>
     </aside>
   );
