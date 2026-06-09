@@ -1,292 +1,57 @@
-#  Hound - Inteligência Artificial para Saúde e Triagem Animal
+# Portal Acadêmico Integrado — Turma 923A (IFAL)
+### Engenharia de Software, Gestão de Cronogramas e Inteligência Artificial com Arquitetura RAG
 
-O **Hound** é uma plataforma web baseada em Inteligência Artificial desenvolvida para auxiliar tutores de animais de estimação na compreensão inicial de sintomas apresentados por seus pets. O sistema realiza uma triagem preliminar inteligente, fornecendo orientações baseadas em uma base de conhecimento veterinária e direcionando o tutor para os cuidados adequados.
+O **Portal 923A** é uma solução Full Stack corporativa e acadêmica projetada para centralizar, monitorar e otimizar a rotina letiva dos estudantes do Curso Técnico em Desenvolvimento de Sistemas do Instituto Federal de Alagoas (IFAL). 
 
->  **Importante:** O Hound não substitui consultas veterinárias, não realiza diagnósticos definitivos e não prescreve medicamentos controlados.
-
----
-
-#  Objetivo
-
-Tutores de pets frequentemente enfrentam situações de preocupação quando seus animais apresentam sintomas incomuns. Muitas vezes, pesquisas em mecanismos de busca retornam informações alarmistas ou imprecisas.
-
-O Hound foi criado para oferecer uma alternativa mais segura, funcionando como um **assistente de triagem veterinária inteligente**, capaz de:
-
-- Coletar sintomas informados pelo tutor;
-- Identificar possíveis condições relacionadas;
-- Sugerir cuidados iniciais;
-- Orientar quando procurar atendimento veterinário.
+A plataforma resolve o problema crônico da fragmentação de informações (prazos, entregas, contraturnos e avaliações) através de uma interface reativa que integra um **Mecanismo de Inteligência Artificial baseado em RAG (Retrieval-Augmented Generation)**. O assistente cognitivo consome uma base de dados determinística em formato JSON e responde de forma humanizada a consultas complexas sobre o calendário da turma.
 
 ---
 
-#  Funcionalidades
+## 1. Escopo do Projeto
 
-##  Cadastro de Animais
-
-Permite registrar informações dos pets para personalizar o atendimento.
-
-### Dados cadastrados
-
-- Nome
-- Espécie
-- Raça
-- Idade
-- Peso
-- Histórico básico
-
----
-
-##  Triagem Inteligente
-
-Chat interativo que:
-
-1. Recebe os sintomas informados pelo tutor;
-2. Analisa os dados utilizando IA;
-3. Consulta uma base de conhecimento veterinária;
-4. Retorna orientações claras e humanizadas.
+* **O que está incluído:**
+  * Sistema de Autenticação (Cadastro e Login) com encriptação de senhas (`bcrypt`).
+  * Painel de controle (Dashboard) com exibição da grade horária e alertas de contraturno.
+  * ChatBot inteligente integrado com LangChain e modelos LLM para leitura da base de conhecimento da turma (`dados.json`).
+* **O que está excluído:**
+  * Envio/Upload de trabalhos pela plataforma (o sistema é estritamente informativo).
+  * Lançamento de notas ou faltas (função exclusiva do sistema oficial do IFAL).
+  * Chat em tempo real entre alunos (mensageria humana).
+* **Limitações conhecidas:**
+  * O assistente virtual depende da atualização manual do arquivo `dados.json` para conhecer novas datas.
+  * Necessita de conexão à internet para comunicar com a API da Groq.
 
 ---
 
-##  Base de Conhecimento Veterinária
+## 2. Personas e Casos de Uso
 
-O sistema utiliza um arquivo JSON estruturado contendo:
+Para guiar o desenvolvimento, definimos 3 personas interagindo com o sistema:
+1. **João (O Aluno):** Esquece prazos facilmente. Precisa do chat de IA para perguntar de forma rápida "Quando é a prova de Física?".
+2. **Maria (A Representante):** Organizada, acessa a plataforma para confirmar as grades de horários e repassar os avisos no grupo da turma.
+3. **Prof. Carlos (Docente):** Quer verificar em quais dias e horários ele dá aula e o que o sistema informa sobre suas avaliações.
 
-- Sintomas;
-- Possíveis doenças;
-- Recomendações iniciais;
-- Nível de atenção.
-
-Exemplo:
-
-```json
-[
-  {
-    "sintomas": [
-      "vômito amarelo",
-      "letargia",
-      "falta de apetite"
-    ],
-    "possivel_doenca": "Gastrite ou problema hepático",
-    "solucao_recomendada": "Pausar alimentação por 6 horas. Oferecer água fresca aos poucos. Se persistir, levar ao veterinário. Nível: Atenção (Amarelo)."
-  }
-]
-```
+### 📝 Histórias de Usuário Principais
+* **UC-01 (Cadastro):** *Como* aluno não cadastrado, *quero* me registrar informando minha matrícula e senha *para* ter acesso ao portal restrito. (Critério de aceitação: E-mail único, senha com hash).
+* **UC-02 (Autenticação):** *Como* aluno, *quero* fazer login seguro *para* acessar a área do chat. (Critério de aceitação: Geração de Token JWT válido).
+* **UC-03 (Consulta de Grade):** *Como* usuário logado, *quero* visualizar minha grade semanal *para* saber se tenho contraturno. (Critério de aceitação: Interface renderizar os dias da semana corretamente).
+* **UC-04 (Consulta com IA):** *Como* estudante, *quero* perguntar à IA sobre trabalhos *para* receber uma resposta imediata. (Critério de aceitação: A IA deve ler o `dados.json` e responder sem inventar informações/alucinar).
 
 ---
 
-#  Arquitetura do Sistema
-
-O projeto utiliza uma arquitetura Full Stack baseada em JavaScript.
-
-## Frontend
-
-Desenvolvido com:
-
-- React.js
-
-Responsável por:
-
-- Interface do usuário;
-- Cadastro de animais;
-- Chat de triagem;
-- Exibição das respostas da IA.
-
----
-
-## Backend
-
-Desenvolvido com:
-
-- Node.js
-- Express.js
-
-Responsável por:
-
-- Processamento das requisições;
-- Comunicação com APIs de IA;
-- Consulta à base de conhecimento;
-- Persistência dos dados.
-
----
-
-## Banco de Dados
-
-Utiliza:
-
-- SQLite
-
-Vantagens:
-
-- Leve;
-- Simples de configurar;
-- Não necessita servidor externo;
-- Ideal para MVPs e desenvolvimento rápido.
-
-O banco é armazenado localmente através do arquivo:
-
-```txt
-database.sqlite
-```
-
----
-
-#  Inteligência Artificial
-
-O Hound combina duas tecnologias principais:
-
-## Hugging Face
-
-Responsável por:
-
-- Processamento de Linguagem Natural (NLP);
-- Interpretação dos sintomas enviados pelo usuário;
-- Busca semântica na base de conhecimento.
-
----
-
-## Groq
-
-Responsável por:
-
-- Geração de respostas humanizadas;
-- Conversação em tempo real;
-- Explicações claras e acolhedoras para o tutor.
-
----
-
-#  Estrutura do Projeto
-
-```txt
-hound/
-│
-├── backend/
-│   ├── package.json
-│   ├── server.js
-│   ├── dados.json
-│   ├── database.sqlite
-│   └── src/
-│       ├── routes.js
-│       └── ai_service.js
-│
-└── frontend/
-    ├── package.json
-    ├── public/
-    └── src/
-        ├── App.js
-        └── index.js
-```
-
----
-
-#  Instalação e Execução
-
-##  Backend
-
-Entre na pasta do backend:
-
-```bash
-cd backend
-```
-
-Instale as dependências:
-
-```bash
-npm install
-```
-
-Inicie o servidor:
-
-```bash
-node server.js
-```
-
-O backend estará disponível em:
-
-```txt
-http://localhost:3001
-```
-
-O arquivo `database.sqlite` será criado automaticamente na primeira execução.
-
----
-
-## 2️ Frontend
-
-Abra um novo terminal e entre na pasta do frontend:
-
-```bash
-cd frontend
-```
-
-Instale as dependências:
-
-```bash
-npm install
-```
-
-Inicie a aplicação:
-
-```bash
-npm start
-```
-
-A aplicação será aberta automaticamente em:
-
-```txt
-http://localhost:3000
-```
-
----
-
-#  Variáveis de Ambiente
-
-Crie um arquivo `.env` dentro da pasta `backend/`.
-
-```env
-GROQ_API_KEY=sua_chave_groq_aqui
-HUGGINGFACE_API_KEY=sua_chave_huggingface_aqui
-```
-
-> Não é necessário configurar URL de banco de dados, pois o SQLite utiliza automaticamente o arquivo `database.sqlite`.
-
----
-
-#  Limitações do Sistema
-
-O Hound foi desenvolvido para atuar exclusivamente como ferramenta de apoio.
-
-O sistema:
-
- Realiza triagem preliminar;
-
- Sugere cuidados iniciais;
-
- Indica quando procurar um veterinário.
-
-O sistema NÃO:
-
- Substitui profissionais veterinários;
-
- Emite diagnósticos definitivos;
-
- Prescreve medicamentos controlados;
-
- Toma decisões clínicas.
-
----
-
-#  Público-Alvo
-
-- Tutores de cães;
-- Tutores de gatos;
-- Clínicas veterinárias;
-- Projetos de bem-estar animal;
-- Organizações de proteção animal.
-
----
-
-#  Visão do Projeto
-
-O Hound busca tornar o cuidado animal mais acessível, utilizando Inteligência Artificial para fornecer orientação rápida, confiável e responsável em momentos de dúvida ou preocupação dos tutores.
-
-Nossa missão é aproximar tecnologia e saúde animal, oferecendo suporte inicial inteligente sem substituir a avaliação profissional veterinária.
+## 3. Arquitetura do Sistema e Fluxo de Dados
+
+O projeto adota uma arquitetura **Cliente-Servidor (Client-Server)** baseada no modelo **MVC** no backend.
+
+```text
+[ Camada de Apresentação ]       [ Camada de Aplicação ]       [ Persistência & Vetores ]
+   React 19 / Vite SPA                 Express 5 API             SQLite3 (User Auth)
+         │                                   │                           │
+         ├─── (Autenticação JWT) ───────────►│◄─── (Query / Hash) ───────┘
+         │                                   │
+         └─── (Prompt do Aluno) ────────────►│─── (Embeddings Locais Xenova)
+                                             │              │
+                                             ▼              ▼
+                                        [ LangChain ] ◄──► [ Memory Vector Store ]
+                                             │               (dados.json Indexado)
+                                             ▼
+                                     [ Groq Inference ]
